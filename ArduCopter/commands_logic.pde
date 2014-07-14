@@ -912,3 +912,10 @@ static void do_take_picture()
     }
 #endif
 }
+
+static void do_camera_pulse(uint8_t state)
+{
+ digitalWrite(61, state);
+ //hal.gpio->write(61, state);
+ update_events();
+}

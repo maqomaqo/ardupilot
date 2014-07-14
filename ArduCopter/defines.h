@@ -61,6 +61,8 @@
 #define AUX_SWITCH_ATTCON_ACCEL_LIM 26      // enable/disable the roll, pitch and yaw accel limiting
 #define AUX_SWITCH_RETRACT_MOUNT    27      // Retract Mount
 
+#define CAM_PULSE 7
+
 // values used by the ap.ch7_opt and ap.ch8_opt flags
 #define AUX_SWITCH_LOW              0       // indicates auxiliar switch is in the low position (pwm <1200)
 #define AUX_SWITCH_MIDDLE           1       // indicates auxiliar switch is in the middle position (pwm >1200, <1800)

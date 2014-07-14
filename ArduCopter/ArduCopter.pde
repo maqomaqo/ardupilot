@@ -663,6 +663,9 @@ static uint32_t rtl_loiter_start_time;
 // Used to exit the roll and pitch auto trim function
 static uint8_t auto_trim_counter;
 
+// Counter to trigger camera shutter pulse every 2.4 seconds
+static uint8_t pulse_counter;
+
 // Reference to the relay object (APM1 -> PORTL 2) (APM2 -> PORTB 7)
 static AP_Relay relay;
 
@@ -887,6 +890,10 @@ void setup()
     AP_Param::setup_sketch_defaults();
 
     init_ardupilot();
+
+pinMode(61, OUTPUT);
+digitalWrite(61, LOW);
+//hal.gpio->write(61, 0);
 
     // initialise the main loop scheduler
     scheduler.init(&scheduler_tasks[0], sizeof(scheduler_tasks)/sizeof(scheduler_tasks[0]));
@@ -1175,6 +1182,19 @@ static void one_hz_loop()
 
     check_usb_mux();
 }
+
+if(motors.armed()) {
+if(pulse_counter > 9) {
+event_id = CAM_PULSE;
+event_timer = millis();
+event_delay = 25;
+event_repeat = 1;
+do_camera_pulse(1);
+pulse_counter = 0;
+ } else {
+ pulse_counter++;
+ }
+ }
 
 // called at 100hz but data from sensor only arrives at 20 Hz
 #if OPTFLOW == ENABLED

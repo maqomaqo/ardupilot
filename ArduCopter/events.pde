@@ -311,6 +311,12 @@ static void failsafe_gcs_check()
     }
 }
 
+
+ if (event_id == CAM_PULSE) {
+ do_camera_pulse(0);
+ }
+
+
 // failsafe_gcs_off_event - actions to take when GCS contact is restored
 static void failsafe_gcs_off_event(void)
 {
